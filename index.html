@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ajay Prajapati – Senior Python Developer</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50:  '#eef2ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#1e1b4b',
+            },
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.6s ease forwards',
+            'fade-in': 'fadeIn 0.8s ease forwards',
+            'pulse-slow': 'pulse 3s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%':   { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            fadeIn: {
+              '0%':   { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ─── Base ─────────────────────────────────────────────── */
+    body { font-family: 'Inter', sans-serif; }
+
+    /* ─── Scroll-reveal ────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── Gradient text ────────────────────────────────────── */
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1, #a78bfa, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── Glowing ring on profile photo ───────────────────── */
+    .profile-ring {
+      background: linear-gradient(135deg, #6366f1, #38bdf8);
+      padding: 3px;
+      border-radius: 9999px;
+      display: inline-block;
+    }
+
+    /* ─── Skill badge ──────────────────────────────────────── */
+    .skill-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 9999px; font-size: 0.78rem; font-weight: 500;
+      background: rgba(99,102,241,0.12); color: #818cf8; border: 1px solid rgba(99,102,241,0.25);
+      transition: all 0.2s;
+    }
+    .skill-badge:hover { background: rgba(99,102,241,0.25); transform: translateY(-2px); }
+
+    /* ─── Timeline ─────────────────────────────────────────── */
+    .timeline-line { position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #6366f1, #38bdf8, transparent); }
+    .timeline-dot  { position: absolute; left: 12px; width: 18px; height: 18px; border-radius: 9999px; background: #6366f1; border: 3px solid #1e1b4b; box-shadow: 0 0 12px #6366f1; top: 6px; }
+
+    /* ─── Project card ─────────────────────────────────────── */
+    .project-card {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; padding: 28px; transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .project-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(99,102,241,0.06), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .project-card:hover { border-color: rgba(99,102,241,0.4); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(99,102,241,0.15); }
+    .project-card:hover::before { opacity: 1; }
+
+    /* ─── Nav link underline anim ──────────────────────────── */
+    .nav-link { position: relative; }
+    .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #6366f1; transition: width 0.3s; }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ─── Section divider ──────────────────────────────────── */
+    .section-label { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: #6366f1; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+
+    /* ─── Input focus glow ─────────────────────────────────── */
+    .glow-input:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.2); }
+
+    /* ─── Scrollbar ────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0f0f1a; }
+    ::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 3px; }
+  </style>
+</head>
+
+<!-- ══════════════════ BODY ══════════════════ -->
+<body class="bg-[#0a0a14] text-gray-200 antialiased">
+
+<!-- ╔══════════════════════════════════════════╗
+     ║              NAVIGATION                  ║
+     ╚══════════════════════════════════════════╝ -->
+<nav id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300" style="background: rgba(10,10,20,0);">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="#hero" class="font-mono text-brand-400 font-semibold text-lg tracking-tight">
+      &lt;AjayP /&gt;
+    </a>
+    <!-- Desktop Links -->
+    <ul class="hidden md:flex gap-8 text-sm text-gray-400">
+      <li><a href="#about"        class="nav-link hover:text-white transition">About</a></li>
+      <li><a href="#skills"       class="nav-link hover:text-white transition">Skills</a></li>
+      <li><a href="#experience"   class="nav-link hover:text-white transition">Experience</a></li>
+      <li><a href="#projects"     class="nav-link hover:text-white transition">Projects</a></li>
+      <li><a href="#achievements" class="nav-link hover:text-white transition">Achievements</a></li>
+      <li><a href="#contact"      class="nav-link hover:text-white transition">Contact</a></li>
+    </ul>
+    <!-- Resume Button -->
+    <a href="resume.pdf" download="Ajay_Prajapati_Resume.pdf"
+       class="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-sm font-medium transition">
+      <i class="fas fa-download text-xs"></i> Resume
+    </a>
+    <!-- Mobile Hamburger -->
+    <button id="menu-btn" class="md:hidden text-gray-400 hover:text-white" aria-label="Toggle menu">
+      <i class="fas fa-bars text-xl"></i>
+    </button>
+  </div>
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-[#0d0d1f] border-t border-white/5">
+    <ul class="flex flex-col gap-4 pt-4 text-sm text-gray-400">
+      <li><a href="#about"        class="hover:text-white transition mobile-link">About</a></li>
+      <li><a href="#skills"       class="hover:text-white transition mobile-link">Skills</a></li>
+      <li><a href="#experience"   class="hover:text-white transition mobile-link">Experience</a></li>
+      <li><a href="#projects"     class="hover:text-white transition mobile-link">Projects</a></li>
+      <li><a href="#achievements" class="hover:text-white transition mobile-link">Achievements</a></li>
+      <li><a href="#contact"      class="hover:text-white transition mobile-link">Contact</a></li>
+      <li><a href="resume.pdf" download class="text-brand-400">⬇ Download Resume</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║                 HERO                     ║
+     ╚══════════════════════════════════════════╝ -->
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background grid -->
+  <div class="absolute inset-0 opacity-[0.04]"
+       style="background-image: linear-gradient(rgba(99,102,241,1) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,1) 1px, transparent 1px); background-size: 60px 60px;"></div>
+  <!-- Radial glow blobs -->
+  <div class="absolute top-1/4 left-1/3 w-96 h-96 bg-brand-600 rounded-full blur-[120px] opacity-10 animate-pulse-slow"></div>
+  <div class="absolute bottom-1/4 right-1/4 w-72 h-72 bg-sky-500 rounded-full blur-[100px] opacity-8 animate-pulse-slow"></div>
+
+  <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
+    <!-- Profile Image -->
+    <div class="flex justify-center mb-8">
+      <div class="profile-ring">
+        <div class="w-32 h-32 rounded-full overflow-hidden bg-gradient-to-br from-brand-700 to-sky-700 flex items-center justify-center">
+          <!-- Replace src with your actual photo path e.g. src="photo.jpg" -->
+          <img id="profile-img" src="photo.jpg" alt="Ajay Prajapati"
+               class="w-full h-full object-cover"
+               onerror="this.style.display='none'; document.getElementById('profile-initials').style.display='flex';" />
+          <span id="profile-initials" class="text-3xl font-bold text-white hidden items-center justify-center w-full h-full">AP</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Name -->
+    <div class="section-label mb-3">Available for Senior Roles</div>
+    <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
+      Ajay <span class="gradient-text">Prajapati</span>
+    </h1>
+
+    <!-- Title -->
+    <p class="font-mono text-brand-400 text-sm md:text-base mb-4 tracking-wide">
+      Senior Python Developer &nbsp;|&nbsp; Backend &nbsp;|&nbsp; Automation &nbsp;|&nbsp; Kubernetes
+    </p>
+
+    <!-- Tagline -->
+    <p class="text-gray-400 text-base md:text-lg max-w-xl mx-auto leading-relaxed mb-10">
+      Building scalable backend systems, automation frameworks, and cloud-native solutions that handle real-world complexity at scale.
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="#projects"
+         class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm shadow-lg shadow-brand-900 transition-all hover:-translate-y-0.5">
+        <i class="fas fa-code-branch mr-2"></i>View Projects
+      </a>
+      <a href="#contact"
+         class="px-6 py-3 rounded-xl border border-white/15 hover:border-brand-400 text-gray-300 hover:text-white font-semibold text-sm transition-all hover:-translate-y-0.5">
+        <i class="fas fa-paper-plane mr-2"></i>Contact Me
+      </a>
+      <a href="resume.pdf" download="Ajay_Prajapati_Resume.pdf"
+         class="px-6 py-3 rounded-xl border border-white/10 hover:border-sky-400 text-gray-400 hover:text-sky-300 font-semibold text-sm transition-all hover:-translate-y-0.5">
+        <i class="fas fa-download mr-2"></i>Download CV
+      </a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="mt-16 flex justify-center animate-bounce">
+      <a href="#about" class="text-gray-600 hover:text-brand-400 transition">
+        <i class="fas fa-chevron-down text-xl"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║               ABOUT ME                   ║
+     ╚══════════════════════════════════════════╝ -->
+<section id="about" class="py-24 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal grid md:grid-cols-2 gap-16 items-center">
+      <!-- Left: Text -->
+      <div>
+        <p class="section-label">// about me</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Engineering Systems That Scale</h2>
+        <div class="space-y-4 text-gray-400 leading-relaxed">
+          <p>
+            With <strong class="text-white">7+ years</strong> of hands-on engineering across backend development, infrastructure automation, and distributed systems, I specialize in designing solutions that are both operationally sound and built to last.
+          </p>
+          <p>
+            My core stack centers on <strong class="text-brand-400">Python</strong>, with deep expertise in <strong class="text-brand-400">Flask, FastAPI</strong>, and <strong class="text-brand-400">Kubernetes</strong>. I've automated large-scale network operations, led platform upgrade strategies, and built AI-driven tooling to eliminate manual toil.
+          </p>
+          <p>
+            I've delivered across networking, storage virtualization (Dell EMC VPLEX), and cloud-native platform engineering — consistently focusing on <strong class="text-white">scalability, security, and production-grade reliability</strong>.
+          </p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="mt-8 grid grid-cols-3 gap-4">
+          <div class="text-center p-4 rounded-xl bg-white/[0.03] border border-white/[0.07]">
+            <div class="text-2xl font-bold gradient-text">7+</div>
+            <div class="text-xs text-gray-500 mt-1">Years Experience</div>
+          </div>
+          <div class="text-center p-4 rounded-xl bg-white/[0.03] border border-white/[0.07]">
+            <div class="text-2xl font-bold gradient-text">100+</div>
+            <div class="text-xs text-gray-500 mt-1">Sites Automated</div>
+          </div>
+          <div class="text-center p-4 rounded-xl bg-white/[0.03] border border-white/[0.07]">
+            <div class="text-2xl font-bold gradient-text">30%</div>
+            <div class="text-xs text-gray-500 mt-1">Efficiency Boost</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Terminal-style card -->
+      <div class="font-mono text-sm bg-[#0d0d1f] rounded-2xl border border-white/[0.07] p-6 shadow-2xl">
+        <div class="flex gap-2 mb-4">
+          <span class="w-3 h-3 rounded-full bg-red-500"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500"></span>
+          <span class="ml-2 text-gray-600 text-xs">ajay@portfolio ~ </span>
+        </div>
+        <div class="space-y-2 text-gray-400">
+          <p><span class="text-brand-400">$</span> whoami</p>
+          <p class="text-green-400">ajay_prajapati</p>
+          <p class="mt-3"><span class="text-brand-400">$</span> cat skills.json | jq '.core'</p>
+          <p class="text-yellow-300">{</p>
+          <p class="pl-4 text-gray-300">"language":  <span class="text-green-300">"Python"</span>,</p>
+          <p class="pl-4 text-gray-300">"backend":   <span class="text-green-300">"FastAPI / Flask"</span>,</p>
+          <p class="pl-4 text-gray-300">"infra":     <span class="text-green-300">"Kubernetes / Ansible"</span>,</p>
+          <p class="pl-4 text-gray-300">"focus":     <span class="text-green-300">"Scale &amp; Reliability"</span></p>
+          <p class="text-yellow-300">}</p>
+          <p class="mt-3"><span class="text-brand-400">$</span> <span class="animate-pulse">▌</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║                SKILLS                    ║
+     ╚══════════════════════════════════════════╝ -->
+<section id="skills" class="py-24 px-6 bg-[#0d0d1f]">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="section-label">// technical stack</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-white">Skills &amp; Technologies</h2>
+    </div>
+
+    <div class="reveal grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Languages -->
+      <div class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6 hover:border-brand-500/40 transition">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-brand-600/20 flex items-center justify-center">
+            <i class="fas fa-code text-brand-400"></i>
+          </div>
+          <h3 class="font-semibold text-white">Languages</h3>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-badge">Python</span>
+          <span class="skill-badge">SQL</span>
+          <span class="skill-badge">Bash</span>
+          <span class="skill-badge">YAML</span>
+        </div>
+      </div>
+
+      <!-- Backend -->
+      <div class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6 hover:border-brand-500/40 transition">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-sky-600/20 flex items-center justify-center">
+            <i class="fas fa-server text-sky-400"></i>
+          </div>
+          <h3 class="font-semibold text-white">Backend</h3>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-badge" style="color:#38bdf8; border-color:rgba(56,189,248,0.25); background:rgba(56,189,248,0.1)">FastAPI</span>
+          <span class="skill-badge" style="color:#38bdf8; border-color:rgba(56,189,248,0.25); background:rgba(56,189,248,0.1)">Flask</span>
+          <span class="skill-badge" style="color:#38bdf8; border-color:rgba(56,189,248,0.25); background:rgba(56,189,248,0.1)">Django</span>
+          <span class="skill-badge" style="color:#38bdf8; border-color:rgba(56,189,248,0.25); background:rgba(56,189,248,0.1)">REST APIs</span>
+        </div>
+      </div>
+
+      <!-- DevOps -->
+      <div class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6 hover:border-brand-500/40 transition">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-green-600/20 flex items-center justify-center">
+            <i class="fas fa-cubes text-green-400"></i>
+          </div>
+          <h3 class="font-semibold text-white">DevOps &amp; Cloud</h3>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-badge" style="color:#4ade80; border-color:rgba(74,222,128,0.25); background:rgba(74,222,128,0.08)">Kubernetes</span>
+          <span class="skill-badge" style="color:#4ade80; border-color:rgba(74,222,128,0.25); background:rgba(74,222,128,0.08)">Docker</span>
+          <span class="skill-badge" style="color:#4ade80; border-color:rgba(74,222,128,0.25); background:rgba(74,222,128,0.08)">Ansible</span>
+          <span class="skill-badge" style="color:#4ade80; border-color:rgba(74,222,128,0.25); background:rgba(74,222,128,0.08)">Jenkins</span>
+        </div>
+      </div>
+
+      <!-- Messaging & Async -->
+      <div class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6 hover:border-brand-500/40 transition">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-orange-600/20 flex items-center justify-center">
+            <i class="fas fa-exchange-alt text-orange-400"></i>
+          </div>
+          <h3 class="font-semibold text-white">Messaging &amp; Async</h3>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-badge" style="color:#fb923c; border-color:rgba(251,146,60,0.25); background:rgba(251,146,60,0.08)">RabbitMQ</span>
+          <span class="skill-badge" style="color:#fb923c; border-color:rgba(251,146,60,0.25); background:rgba(251,146,60,0.08)">Celery</span>
+          <span class="skill-badge" style="color:#fb923c; border-color:rgba(251,146,60,0.25); background:rgba(251,146,60,0.08)">Redis</span>
+        </div>
+      </div>
+
+      <!-- Data -->
+      <div class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6 hover:border-brand-500/40 transition">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-purple-600/20 flex items-center justify-center">
+            <i class="fas fa-chart-bar text-purple-400"></i>
+          </div>
+          <h3 class="font-semibold text-white">Data &amp; Analytics</h3>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-badge" style="color:#c084fc; border-color:rgba(192,132,252,0.25); background:rgba(192,132,252,0.08)">Pandas</span>
+          <span class="skill-badge" style="color:#c084fc; border-color:rgba(192,132,252,0.25); background:rgba(192,132,252,0.08)">NumPy</span>
+          <span class="skill-badge" style="color:#c084fc; border-color:rgba(192,132,252,0.25); background:rgba(192,132,252,0.08)">PostgreSQL</span>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6 hover:border-brand-500/40 transition">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-yellow-600/20 flex items-center justify-center">
+            <i class="fas fa-tools text-yellow-400"></i>
+          </div>
+          <h3 class="font-semibold text-white">Tools &amp; Platforms</h3>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-badge" style="color:#facc15; border-color:rgba(250,204,21,0.25); background:rgba(250,204,21,0.08)">Git</span>
+          <span class="skill-badge" style="color:#facc15; border-color:rgba(250,204,21,0.25); background:rgba(250,204,21,0.08)">VMware</span>
+          <span class="skill-badge" style="color:#facc15; border-color:rgba(250,204,21,0.25); background:rgba(250,204,21,0.08)">Linux</span>
+          <span class="skill-badge" style="color:#facc15; border-color:rgba(250,204,21,0.25); background:rgba(250,204,21,0.08)">Jira</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║              EXPERIENCE                  ║
+     ╚══════════════════════════════════════════╝ -->
+<section id="experience" class="py-24 px-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="section-label">// career timeline</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-white">Work Experience</h2>
+    </div>
+
+    <!-- Timeline -->
+    <div class="reveal relative pl-12">
+      <div class="timeline-line"></div>
+
+      <!-- ── Role 1 ── -->
+      <div class="relative mb-14">
+        <div class="timeline-dot"></div>
+        <div class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6 hover:border-brand-500/30 transition">
+          <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+            <div>
+              <h3 class="text-lg font-bold text-white">Senior Automation Engineer</h3>
+              <p class="text-brand-400 font-mono text-sm mt-0.5">Current Company</p>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-xs font-medium border border-green-500/20">
+              2026 – Present
+            </span>
+          </div>
+          <ul class="space-y-2 text-gray-400 text-sm">
+            <li class="flex gap-2"><span class="text-brand-400 mt-0.5 shrink-0">→</span> Automated DNS and DHCP provisioning across <strong class="text-white">100+ distributed sites</strong>, eliminating manual change tickets and reducing provisioning time by ~70%.</li>
+            <li class="flex gap-2"><span class="text-brand-400 mt-0.5 shrink-0">→</span> Designed and deployed an <strong class="text-white">AI-based ticket routing agent</strong> using Python + LLM APIs, cutting triage time and misrouted tickets significantly.</li>
+            <li class="flex gap-2"><span class="text-brand-400 mt-0.5 shrink-0">→</span> Built production-grade automation pipelines with <strong class="text-white">Infoblox WAPI</strong>, Flask APIs, and Celery for async task orchestration.</li>
+          </ul>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="skill-badge text-xs">Python</span>
+            <span class="skill-badge text-xs">Infoblox</span>
+            <span class="skill-badge text-xs">FastAPI</span>
+            <span class="skill-badge text-xs">Celery</span>
+            <span class="skill-badge text-xs">LLM APIs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Role 2 ── -->
+      <div class="relative mb-14">
+        <div class="timeline-dot" style="background:#38bdf8; box-shadow:0 0 12px #38bdf8;"></div>
+        <div class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6 hover:border-sky-500/30 transition">
+          <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+            <div>
+              <h3 class="text-lg font-bold text-white">Tech Lead – Python Backend &amp; Infrastructure</h3>
+              <p class="text-sky-400 font-mono text-sm mt-0.5">HCL Technologies</p>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 text-xs font-medium border border-sky-500/20">
+              2021 – 2026
+            </span>
+          </div>
+          <ul class="space-y-2 text-gray-400 text-sm">
+            <li class="flex gap-2"><span class="text-sky-400 mt-0.5 shrink-0">→</span> Led end-to-end <strong class="text-white">Kubernetes upgrade from v1.21 → v1.30</strong> across multi-node production clusters with zero-downtime rollout strategy.</li>
+            <li class="flex gap-2"><span class="text-sky-400 mt-0.5 shrink-0">→</span> Developed <strong class="text-white">OS automation REST APIs</strong> (FastAPI + Kubernetes Jobs) that improved operational efficiency by <strong class="text-white">30%</strong>.</li>
+            <li class="flex gap-2"><span class="text-sky-400 mt-0.5 shrink-0">→</span> Built <strong class="text-white">SSH-based infrastructure automation</strong> for large-scale server patching and configuration management across heterogeneous environments.</li>
+            <li class="flex gap-2"><span class="text-sky-400 mt-0.5 shrink-0">→</span> Mentored junior engineers on backend design patterns, API standards, and production debugging practices.</li>
+          </ul>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="skill-badge text-xs" style="color:#38bdf8; border-color:rgba(56,189,248,0.25); background:rgba(56,189,248,0.1)">Kubernetes</span>
+            <span class="skill-badge text-xs" style="color:#38bdf8; border-color:rgba(56,189,248,0.25); background:rgba(56,189,248,0.1)">FastAPI</span>
+            <span class="skill-badge text-xs" style="color:#38bdf8; border-color:rgba(56,189,248,0.25); background:rgba(56,189,248,0.1)">Docker</span>
+            <span class="skill-badge text-xs" style="color:#38bdf8; border-color:rgba(56,189,248,0.25); background:rgba(56,189,248,0.1)">Ansible</span>
+            <span class="skill-badge text-xs" style="color:#38bdf8; border-color:rgba(56,189,248,0.25); background:rgba(56,189,248,0.1)">Python</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Role 3 ── -->
+      <div class="relative mb-6">
+        <div class="timeline-dot" style="background:#a78bfa; box-shadow:0 0 12px #a78bfa;"></div>
+        <div class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6 hover:border-purple-500/30 transition">
+          <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+            <div>
+              <h3 class="text-lg font-bold text-white">Software Engineer – Test Automation</h3>
+              <p class="text-purple-400 font-mono text-sm mt-0.5">Previous Organization</p>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs font-medium border border-purple-500/20">
+              2018 – 2021
+            </span>
+          </div>
+          <ul class="space-y-2 text-gray-400 text-sm">
+            <li class="flex gap-2"><span class="text-purple-400 mt-0.5 shrink-0">→</span> Built end-to-end <strong class="text-white">test automation frameworks</strong> using Selenium, Robot Framework, and Python for enterprise web applications.</li>
+            <li class="flex gap-2"><span class="text-purple-400 mt-0.5 shrink-0">→</span> Reduced manual regression cycle from <strong class="text-white">3 days to 4 hours</strong> through CI-integrated automated test suites.</li>
+            <li class="flex gap-2"><span class="text-purple-400 mt-0.5 shrink-0">→</span> Established test data management patterns and reporting dashboards for stakeholder visibility.</li>
+          </ul>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="skill-badge text-xs" style="color:#c084fc; border-color:rgba(192,132,252,0.25); background:rgba(192,132,252,0.08)">Selenium</span>
+            <span class="skill-badge text-xs" style="color:#c084fc; border-color:rgba(192,132,252,0.25); background:rgba(192,132,252,0.08)">Robot Framework</span>
+            <span class="skill-badge text-xs" style="color:#c084fc; border-color:rgba(192,132,252,0.25); background:rgba(192,132,252,0.08)">Python</span>
+            <span class="skill-badge text-xs" style="color:#c084fc; border-color:rgba(192,132,252,0.25); background:rgba(192,132,252,0.08)">Jenkins</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /timeline -->
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║               PROJECTS                   ║
+     ╚══════════════════════════════════════════╝ -->
+<section id="projects" class="py-24 px-6 bg-[#0d0d1f]">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="section-label">// selected work</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-white">Projects</h2>
+    </div>
+
+    <div class="reveal grid md:grid-cols-2 gap-6">
+
+      <!-- Project 1: VPLEX Automation -->
+      <div class="project-card">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-10 h-10 rounded-xl bg-brand-600/20 flex items-center justify-center">
+            <i class="fas fa-database text-brand-400"></i>
+          </div>
+          <span class="font-mono text-xs text-gray-600">01</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">VPLEX Storage Automation</h3>
+        <div class="space-y-2 text-sm text-gray-400 mb-5">
+          <p><span class="text-brand-400 font-semibold">Problem:</span> Manual VPLEX storage provisioning across distributed sites was error-prone and took hours per change.</p>
+          <p><span class="text-sky-400 font-semibold">Solution:</span> Built a full automation framework using <strong class="text-white">Ansible + Python</strong> to orchestrate VPLEX REST API operations — provisioning, zoning, and health checks.</p>
+          <p><span class="text-green-400 font-semibold">Impact:</span> Reduced provisioning time from 4 hours to 15 minutes. Zero manual errors post-deployment.</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-badge text-xs">Ansible</span>
+          <span class="skill-badge text-xs">Python</span>
+          <span class="skill-badge text-xs">REST API</span>
+          <span class="skill-badge text-xs">Dell EMC VPLEX</span>
+        </div>
+      </div>
+
+      <!-- Project 2: OMNI Platform -->
+      <div class="project-card">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-10 h-10 rounded-xl bg-sky-600/20 flex items-center justify-center">
+            <i class="fas fa-cloud text-sky-400"></i>
+          </div>
+          <span class="font-mono text-xs text-gray-600">02</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">OMNI Cloud Platform</h3>
+        <div class="space-y-2 text-sm text-gray-400 mb-5">
+          <p><span class="text-brand-400 font-semibold">Problem:</span> Multi-tenant platform needed IPv6 support, scalable API layer, and Kubernetes-native deployment for enterprise clients.</p>
+          <p><span class="text-sky-400 font-semibold">Solution:</span> Architected the platform backend with <strong class="text-white">FastAPI + Kubernetes</strong>, full dual-stack IPv6 support, and multi-tenant isolation at the namespace level.</p>
+          <p><span class="text-green-400 font-semibold">Impact:</span> Onboarded 15+ enterprise tenants. Platform handles 10k+ API calls/day with 99.9% uptime SLA.</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-badge text-xs" style="color:#38bdf8; border-color:rgba(56,189,248,0.25); background:rgba(56,189,248,0.1)">Kubernetes</span>
+          <span class="skill-badge text-xs" style="color:#38bdf8; border-color:rgba(56,189,248,0.25); background:rgba(56,189,248,0.1)">FastAPI</span>
+          <span class="skill-badge text-xs" style="color:#38bdf8; border-color:rgba(56,189,248,0.25); background:rgba(56,189,248,0.1)">IPv6</span>
+          <span class="skill-badge text-xs" style="color:#38bdf8; border-color:rgba(56,189,248,0.25); background:rgba(56,189,248,0.1)">Docker</span>
+        </div>
+      </div>
+
+      <!-- Project 3: Network Automation -->
+      <div class="project-card">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-10 h-10 rounded-xl bg-green-600/20 flex items-center justify-center">
+            <i class="fas fa-network-wired text-green-400"></i>
+          </div>
+          <span class="font-mono text-xs text-gray-600">03</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">Network &amp; OS Automation at Scale</h3>
+        <div class="space-y-2 text-sm text-gray-400 mb-5">
+          <p><span class="text-brand-400 font-semibold">Problem:</span> DNS/DHCP changes and OS upgrades across 100+ geographically distributed sites were handled manually, creating configuration drift and compliance risk.</p>
+          <p><span class="text-sky-400 font-semibold">Solution:</span> Developed a <strong class="text-white">Python + Infoblox WAPI</strong> automation suite with Celery task queues and a Flask API for operator-triggered workflows.</p>
+          <p><span class="text-green-400 font-semibold">Impact:</span> Eliminated ~200 manual tickets/month. 100% consistency across all sites.</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-badge text-xs" style="color:#4ade80; border-color:rgba(74,222,128,0.25); background:rgba(74,222,128,0.08)">Python</span>
+          <span class="skill-badge text-xs" style="color:#4ade80; border-color:rgba(74,222,128,0.25); background:rgba(74,222,128,0.08)">Infoblox</span>
+          <span class="skill-badge text-xs" style="color:#4ade80; border-color:rgba(74,222,128,0.25); background:rgba(74,222,128,0.08)">Celery</span>
+          <span class="skill-badge text-xs" style="color:#4ade80; border-color:rgba(74,222,128,0.25); background:rgba(74,222,128,0.08)">RabbitMQ</span>
+        </div>
+      </div>
+
+      <!-- Project 4: AI Ticket Routing -->
+      <div class="project-card">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-10 h-10 rounded-xl bg-purple-600/20 flex items-center justify-center">
+            <i class="fas fa-robot text-purple-400"></i>
+          </div>
+          <span class="font-mono text-xs text-gray-600">04</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">AI Agent – Ticket Routing</h3>
+        <div class="space-y-2 text-sm text-gray-400 mb-5">
+          <p><span class="text-brand-400 font-semibold">Problem:</span> Support tickets were being misrouted manually, causing SLA breaches and unnecessary escalations across L1/L2/L3 tiers.</p>
+          <p><span class="text-sky-400 font-semibold">Solution:</span> Built an <strong class="text-white">LLM-powered classification agent</strong> in Python that reads ticket content and routes to the correct team using fine-tuned intent classification + confidence scoring.</p>
+          <p><span class="text-green-400 font-semibold">Impact:</span> 85%+ routing accuracy. Reduced misrouted tickets by 60% in the first month.</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-badge text-xs" style="color:#c084fc; border-color:rgba(192,132,252,0.25); background:rgba(192,132,252,0.08)">Python</span>
+          <span class="skill-badge text-xs" style="color:#c084fc; border-color:rgba(192,132,252,0.25); background:rgba(192,132,252,0.08)">LLM APIs</span>
+          <span class="skill-badge text-xs" style="color:#c084fc; border-color:rgba(192,132,252,0.25); background:rgba(192,132,252,0.08)">FastAPI</span>
+          <span class="skill-badge text-xs" style="color:#c084fc; border-color:rgba(192,132,252,0.25); background:rgba(192,132,252,0.08)">NLP</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║              ACHIEVEMENTS                ║
+     ╚══════════════════════════════════════════╝ -->
+<section id="achievements" class="py-24 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="section-label">// recognition</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-white">Achievements &amp; Certifications</h2>
+    </div>
+
+    <div class="reveal grid md:grid-cols-3 gap-6">
+
+      <div class="bg-white/[0.02] border border-yellow-500/20 rounded-2xl p-6 hover:border-yellow-500/40 hover:-translate-y-1 transition-all text-center">
+        <div class="w-14 h-14 rounded-2xl bg-yellow-500/10 flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-star text-2xl text-yellow-400"></i>
+        </div>
+        <h3 class="font-bold text-white mb-2">HackerRank 5-Star</h3>
+        <p class="text-sm text-gray-500">Achieved 5-star Gold rating in Python on HackerRank — top-tier competitive programming rank.</p>
+        <div class="mt-4 flex flex-wrap justify-center gap-2">
+          <span class="text-xs px-2 py-1 rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">Python</span>
+          <span class="text-xs px-2 py-1 rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">HackerRank</span>
+        </div>
+      </div>
+
+      <div class="bg-white/[0.02] border border-brand-500/20 rounded-2xl p-6 hover:border-brand-500/40 hover:-translate-y-1 transition-all text-center">
+        <div class="w-14 h-14 rounded-2xl bg-brand-500/10 flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-trophy text-2xl text-brand-400"></i>
+        </div>
+        <h3 class="font-bold text-white mb-2">HCL Champion Award</h3>
+        <p class="text-sm text-gray-500">Recognized by HCL Technologies for outstanding contribution to platform engineering and automation initiatives.</p>
+        <div class="mt-4 flex flex-wrap justify-center gap-2">
+          <span class="text-xs px-2 py-1 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20">HCL Technologies</span>
+        </div>
+      </div>
+
+      <div class="bg-white/[0.02] border border-green-500/20 rounded-2xl p-6 hover:border-green-500/40 hover:-translate-y-1 transition-all text-center">
+        <div class="w-14 h-14 rounded-2xl bg-green-500/10 flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-shield-alt text-2xl text-green-400"></i>
+        </div>
+        <h3 class="font-bold text-white mb-2">Dell Secure Dev Certification</h3>
+        <p class="text-sm text-gray-500">Certified in Secure Development Lifecycle practices by Dell Technologies — applied to production system hardening.</p>
+        <div class="mt-4 flex flex-wrap justify-center gap-2">
+          <span class="text-xs px-2 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Security</span>
+          <span class="text-xs px-2 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Dell EMC</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║               CONTACT                    ║
+     ╚══════════════════════════════════════════╝ -->
+<section id="contact" class="py-24 px-6 bg-[#0d0d1f]">
+  <div class="max-w-4xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="section-label">// get in touch</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-white">Contact Me</h2>
+      <p class="text-gray-500 mt-3 max-w-md mx-auto">Open to senior backend, automation, or platform engineering roles. Fill the form and I'll get back to you.</p>
+    </div>
+
+    <div class="reveal grid md:grid-cols-2 gap-12 items-start">
+
+      <!-- Left: Contact Info -->
+      <div class="space-y-6">
+        <div class="flex items-center gap-4 group">
+          <div class="w-12 h-12 rounded-xl bg-brand-600/20 flex items-center justify-center group-hover:bg-brand-600/30 transition shrink-0">
+            <i class="fas fa-envelope text-brand-400"></i>
+          </div>
+          <div>
+            <p class="text-xs text-gray-600 mb-0.5">Email</p>
+            <a href="mailto:ajay.prajapati2691@gmail.com" class="text-white hover:text-brand-400 transition text-sm font-medium">ajay.prajapati2691@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4 group">
+          <div class="w-12 h-12 rounded-xl bg-green-600/20 flex items-center justify-center group-hover:bg-green-600/30 transition shrink-0">
+            <i class="fas fa-phone text-green-400"></i>
+          </div>
+          <div>
+            <p class="text-xs text-gray-600 mb-0.5">Phone</p>
+            <a href="tel:+919284127529" class="text-white hover:text-green-400 transition text-sm font-medium">+91 92841 27529</a>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4 group">
+          <div class="w-12 h-12 rounded-xl bg-sky-600/20 flex items-center justify-center group-hover:bg-sky-600/30 transition shrink-0">
+            <i class="fab fa-linkedin text-sky-400"></i>
+          </div>
+          <div>
+            <p class="text-xs text-gray-600 mb-0.5">LinkedIn</p>
+            <a href="https://linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener noreferrer" class="text-white hover:text-sky-400 transition text-sm font-medium">linkedin.com/in/ajay-prajapati</a>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4 group">
+          <div class="w-12 h-12 rounded-xl bg-purple-600/20 flex items-center justify-center group-hover:bg-purple-600/30 transition shrink-0">
+            <i class="fab fa-github text-purple-400"></i>
+          </div>
+          <div>
+            <p class="text-xs text-gray-600 mb-0.5">GitHub</p>
+            <a href="https://github.com/YOUR-GITHUB" target="_blank" rel="noopener noreferrer" class="text-white hover:text-purple-400 transition text-sm font-medium">github.com/ajay-prajapati</a>
+          </div>
+        </div>
+
+        <!-- Resume download card -->
+        <div class="mt-8 p-5 rounded-xl border border-brand-500/20 bg-brand-600/5">
+          <p class="text-sm text-gray-400 mb-3">Want the full picture?</p>
+          <a href="resume.pdf" download="Ajay_Prajapati_Resume.pdf"
+             class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-sm font-semibold transition-all hover:-translate-y-0.5">
+            <i class="fas fa-download"></i> Download Resume (PDF)
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Contact Form (EmailJS) -->
+      <form id="contact-form" class="space-y-5" novalidate>
+        <div>
+          <label class="block text-xs text-gray-500 mb-1.5 font-medium uppercase tracking-wide">Name</label>
+          <input type="text" name="from_name" id="from_name" required placeholder="Your full name"
+                 class="w-full bg-white/[0.04] border border-white/[0.1] rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 glow-input transition" />
+        </div>
+        <div>
+          <label class="block text-xs text-gray-500 mb-1.5 font-medium uppercase tracking-wide">Email</label>
+          <input type="email" name="reply_to" id="reply_to" required placeholder="your@email.com"
+                 class="w-full bg-white/[0.04] border border-white/[0.1] rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 glow-input transition" />
+        </div>
+        <div>
+          <label class="block text-xs text-gray-500 mb-1.5 font-medium uppercase tracking-wide">Subject</label>
+          <input type="text" name="subject" id="subject" required placeholder="What's this about?"
+                 class="w-full bg-white/[0.04] border border-white/[0.1] rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 glow-input transition" />
+        </div>
+        <div>
+          <label class="block text-xs text-gray-500 mb-1.5 font-medium uppercase tracking-wide">Message</label>
+          <textarea name="message" id="message" required rows="5" placeholder="Tell me about the opportunity or project..."
+                    class="w-full bg-white/[0.04] border border-white/[0.1] rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 glow-input transition resize-none"></textarea>
+        </div>
+
+        <!-- Status Message -->
+        <div id="form-status" class="hidden text-sm rounded-xl px-4 py-3"></div>
+
+        <button type="submit" id="submit-btn"
+                class="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2">
+          <i class="fas fa-paper-plane"></i>
+          <span id="btn-text">Send Message</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║                FOOTER                    ║
+     ╚══════════════════════════════════════════╝ -->
+<footer class="py-10 px-6 border-t border-white/[0.05]">
+  <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-600">
+    <p class="font-mono">&lt;AjayP /&gt; — Senior Python Developer</p>
+    <p>Designed &amp; built with intent. &copy; 2026 Ajay Prajapati.</p>
+    <div class="flex gap-5">
+      <a href="mailto:ajay.prajapati2691@gmail.com" class="hover:text-brand-400 transition"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/YOUR-GITHUB" target="_blank" rel="noopener noreferrer" class="hover:text-brand-400 transition"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener noreferrer" class="hover:text-brand-400 transition"><i class="fab fa-linkedin"></i></a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ══════════════════ SCRIPTS ══════════════════ -->
+<script>
+/* ─── EmailJS Init ─────────────────────────────────────────────────────────
+   SETUP STEPS (free, takes 5 minutes):
+   1. Go to https://www.emailjs.com and create a free account
+   2. Add a Service: Gmail → connect ajay.prajapati2691@gmail.com (Service ID will show)
+   3. Create an Email Template:
+      Subject: "Portfolio Contact: {{subject}}"
+      Body: "From: {{from_name}} ({{reply_to}})\n\n{{message}}"
+      (Template ID will show)
+   4. Go to Account → API Keys → copy your Public Key
+   5. Replace the THREE placeholders below with your actual values
+   ─────────────────────────────────────────────────────────────────────────── */
+const EMAILJS_PUBLIC_KEY   = 'YOUR_PUBLIC_KEY';      // ← replace
+const EMAILJS_SERVICE_ID   = 'YOUR_SERVICE_ID';      // ← replace
+const EMAILJS_TEMPLATE_ID  = 'YOUR_TEMPLATE_ID';     // ← replace
+
+(function() {
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+})();
+
+/* ─── Contact Form Submit ─────────────────────────────────────────────── */
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const btn     = document.getElementById('submit-btn');
+  const btnText = document.getElementById('btn-text');
+  const status  = document.getElementById('form-status');
+
+  // Basic validation
+  const name    = document.getElementById('from_name').value.trim();
+  const email   = document.getElementById('reply_to').value.trim();
+  const subject = document.getElementById('subject').value.trim();
+  const message = document.getElementById('message').value.trim();
+
+  if (!name || !email || !subject || !message) {
+    showStatus('Please fill in all fields.', 'error');
+    return;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    showStatus('Please enter a valid email address.', 'error');
+    return;
+  }
+
+  // Loading state
+  btn.disabled  = true;
+  btnText.textContent = 'Sending…';
+
+  const templateParams = { from_name: name, reply_to: email, subject: subject, message: message };
+
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+    .then(function() {
+      showStatus('Message sent successfully! I\'ll get back to you soon.', 'success');
+      document.getElementById('contact-form').reset();
+    })
+    .catch(function(err) {
+      console.error('EmailJS error:', err);
+      showStatus('Failed to send. Please email me directly at ajay.prajapati2691@gmail.com', 'error');
+    })
+    .finally(function() {
+      btn.disabled = false;
+      btnText.textContent = 'Send Message';
+    });
+});
+
+function showStatus(msg, type) {
+  const el = document.getElementById('form-status');
+  el.textContent = msg;
+  el.className = 'text-sm rounded-xl px-4 py-3 ' + (type === 'success'
+    ? 'bg-green-500/10 text-green-400 border border-green-500/20'
+    : 'bg-red-500/10 text-red-400 border border-red-500/20');
+  el.classList.remove('hidden');
+  setTimeout(() => el.classList.add('hidden'), 6000);
+}
+
+/* ─── Sticky Navbar ───────────────────────────────────────────────────── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 50) {
+    navbar.style.background = 'rgba(10,10,20,0.92)';
+    navbar.style.backdropFilter = 'blur(12px)';
+    navbar.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+  } else {
+    navbar.style.background = 'rgba(10,10,20,0)';
+    navbar.style.backdropFilter = 'none';
+    navbar.style.borderBottom = 'none';
+  }
+});
+
+/* ─── Mobile menu toggle ──────────────────────────────────────────────── */
+document.getElementById('menu-btn').addEventListener('click', function() {
+  const menu = document.getElementById('mobile-menu');
+  menu.classList.toggle('hidden');
+});
+document.querySelectorAll('.mobile-link').forEach(function(link) {
+  link.addEventListener('click', function() {
+    document.getElementById('mobile-menu').classList.add('hidden');
+  });
+});
+
+/* ─── Scroll Reveal (IntersectionObserver) ────────────────────────────── */
+const observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal').forEach(function(el) {
+  observer.observe(el);
+});
+
+/* ─── Active nav highlight on scroll ─────────────────────────────────── */
+const sections  = document.querySelectorAll('section[id]');
+const navLinks  = document.querySelectorAll('nav a[href^="#"]');
+
+window.addEventListener('scroll', function() {
+  let current = '';
+  sections.forEach(function(section) {
+    if (window.scrollY >= section.offsetTop - 120) {
+      current = section.getAttribute('id');
+    }
+  });
+  navLinks.forEach(function(link) {
+    link.classList.remove('text-white');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('text-white');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
