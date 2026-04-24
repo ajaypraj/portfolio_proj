@@ -787,7 +787,7 @@
     <div class="flex gap-5">
       <a href="mailto:ajay.prajapati2691@gmail.com" class="hover:text-brand-400 transition"><i class="fas fa-envelope"></i></a>
       <a href="https://github.com/ajaypraj" target="_blank" rel="noopener noreferrer" class="hover:text-brand-400 transition"><i class="fab fa-github"></i></a>
-      <a href="https://linkedin.com/in/ajay-prajapati-7280573a/" target="_blank" rel="noopener noreferrer" class="hover:text-brand-400 transition"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.linkedin.com/in/ajay-prajapati-7280573a/" target="_blank" rel="noopener noreferrer" class="hover:text-brand-400 transition"><i class="fab fa-linkedin"></i></a>
     </div>
   </div>
 </footer>
@@ -806,16 +806,54 @@
    4. Go to Account → API Keys → copy your Public Key
    5. Replace the THREE placeholders below with your actual values
    ─────────────────────────────────────────────────────────────────────────── */
-const EMAILJS_PUBLIC_KEY   = 'tfAoUBn8PlIrqFm';      // ← replace
+const EMAILJS_PUBLIC_KEY   = 'r-tfAoUBn8PlIrqFm';      // ← replace
 const EMAILJS_SERVICE_ID   = 'service_406duci';      // ← replace
 const EMAILJS_TEMPLATE_ID  = 'template_p3lzz9r';     // ← replace
 
+let emailJsReady = false;
+
+function hasEmailJsConfig() {
+  return Boolean(
+    EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY.trim() &&
+    EMAILJS_SERVICE_ID && EMAILJS_SERVICE_ID.trim() &&
+    EMAILJS_TEMPLATE_ID && EMAILJS_TEMPLATE_ID.trim()
+  );
+}
+
+function getEmailJsErrorMessage(err) {
+  if (!err) return '';
+  if (typeof err === 'string') return err;
+  if (err.text) return String(err.text);
+  if (err.message) return String(err.message);
+  if (err.status) return `HTTP ${err.status}`;
+  try {
+    return JSON.stringify(err);
+  } catch (_) {
+    return '';
+  }
+}
+
 (function() {
-  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  if (!window.emailjs) {
+    console.error('EmailJS SDK not loaded.');
+    return;
+  }
+
+  if (!hasEmailJsConfig()) {
+    console.error('EmailJS config missing. Check public key, service ID, and template ID.');
+    return;
+  }
+
+  try {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    emailJsReady = true;
+  } catch (err) {
+    console.error('EmailJS init failed:', err);
+  }
 })();
 
 /* ─── Contact Form Submit ─────────────────────────────────────────────── */
-document.getElementById('contact-form').addEventListener('submit', function(e) {
+document.getElementById('contact-form').addEventListener('submit', async function(e) {
   e.preventDefault();
 
   const btn     = document.getElementById('submit-btn');
@@ -839,25 +877,37 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     return;
   }
 
+  if (!window.emailjs || !emailJsReady) {
+    showStatus('Email service is not configured correctly. Please try again in a few minutes.', 'error');
+    return;
+  }
+
   // Loading state
   btn.disabled  = true;
   btnText.textContent = 'Sending…';
 
-  const templateParams = { from_name: name, reply_to: email, subject: subject, message: message };
+  try {
+    await emailjs.sendForm(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      this,
+      { publicKey: EMAILJS_PUBLIC_KEY }
+    );
 
-  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-    .then(function() {
       showStatus('Message sent successfully! I\'ll get back to you soon.', 'success');
       document.getElementById('contact-form').reset();
-    })
-    .catch(function(err) {
-      console.error('EmailJS error:', err);
-      showStatus('Failed to send. Please email me directly at ajay.prajapati2691@gmail.com', 'error');
-    })
-    .finally(function() {
-      btn.disabled = false;
-      btnText.textContent = 'Send Message';
-    });
+  } catch (err) {
+    console.error('EmailJS error:', err);
+    const detail = getEmailJsErrorMessage(err);
+    showStatus(
+      'Failed to send. Please email me directly at ajay.prajapati2691@gmail.com' +
+      (detail ? ` (${detail})` : ''),
+      'error'
+    );
+  } finally {
+    btn.disabled = false;
+    btnText.textContent = 'Send Message';
+  }
 });
 
 function showStatus(msg, type) {
