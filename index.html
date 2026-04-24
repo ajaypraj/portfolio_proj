@@ -886,11 +886,20 @@ document.getElementById('contact-form').addEventListener('submit', async functio
   btn.disabled  = true;
   btnText.textContent = 'Sending…';
 
+  // Ensure subject is explicitly included in template variables
+  const templateParams = {
+    from_name: name,
+    reply_to: email,
+    subject: subject,
+    message: message,
+    to_email: 'ajay.prajapati2691@gmail.com'
+  };
+
   try {
-    await emailjs.sendForm(
+    await emailjs.send(
       EMAILJS_SERVICE_ID,
       EMAILJS_TEMPLATE_ID,
-      this,
+      templateParams,
       { publicKey: EMAILJS_PUBLIC_KEY }
     );
 
