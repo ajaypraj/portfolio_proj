@@ -30,11 +30,11 @@
             brand: {
               50:  '#eef2ff',
               100: '#e0e7ff',
-              400: '#818cf8',
-              500: '#6366f1',
-              600: '#4f46e5',
-              700: '#4338ca',
-              900: '#1e1b4b',
+              400: '#93a5d6',
+              500: '#5b6fc4',
+              600: '#3f53a8',
+              700: '#2f4185',
+              900: '#101934',
             },
           },
           animation: {
@@ -59,15 +59,21 @@
 
   <style>
     /* ─── Base ─────────────────────────────────────────────── */
-    body { font-family: 'Inter', sans-serif; }
+    body {
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.005em;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    h1, h2, h3, h4, h5, h6 { letter-spacing: -0.02em; }
 
     /* ─── Scroll-reveal ────────────────────────────────────── */
-    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal { opacity: 1; transform: translateY(0); transition: opacity 0.65s ease, transform 0.65s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ─── Gradient text ────────────────────────────────────── */
     .gradient-text {
-      background: linear-gradient(135deg, #6366f1, #a78bfa, #38bdf8);
+      background: linear-gradient(135deg, #c7d2fe, #93a5d6 45%, #7ea0c2);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -75,8 +81,8 @@
 
     /* ─── Glowing ring on profile photo ───────────────────── */
     .profile-ring {
-      background: linear-gradient(135deg, #6366f1, #38bdf8);
-      padding: 3px;
+      background: linear-gradient(135deg, #3f53a8, #5b8db4);
+      padding: 2px;
       border-radius: 9999px;
       display: inline-block;
     }
@@ -84,55 +90,57 @@
     /* ─── Skill badge ──────────────────────────────────────── */
     .skill-badge {
       display: inline-flex; align-items: center; gap: 6px;
-      padding: 6px 14px; border-radius: 9999px; font-size: 0.78rem; font-weight: 500;
-      background: rgba(99,102,241,0.12); color: #818cf8; border: 1px solid rgba(99,102,241,0.25);
+      padding: 5px 12px; border-radius: 6px; font-size: 0.74rem; font-weight: 500;
+      background: rgba(147,165,214,0.06); color: #b8c2db; border: 1px solid rgba(147,165,214,0.18);
+      letter-spacing: 0.01em;
       transition: all 0.2s;
     }
-    .skill-badge:hover { background: rgba(99,102,241,0.25); transform: translateY(-2px); }
+    .skill-badge:hover { background: rgba(147,165,214,0.12); border-color: rgba(147,165,214,0.35); color: #ffffff; }
 
     /* ─── Timeline ─────────────────────────────────────────── */
-    .timeline-line { position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #6366f1, #38bdf8, transparent); }
-    .timeline-dot  { position: absolute; left: 12px; width: 18px; height: 18px; border-radius: 9999px; background: #6366f1; border: 3px solid #1e1b4b; box-shadow: 0 0 12px #6366f1; top: 6px; }
+    .timeline-line { position: absolute; left: 20px; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, rgba(147,165,214,0.4), rgba(147,165,214,0.1), transparent); }
+    .timeline-dot  { position: absolute; left: 14px; width: 12px; height: 12px; border-radius: 9999px; background: #93a5d6; border: 2px solid #0b1020; box-shadow: 0 0 0 3px rgba(147,165,214,0.15); top: 8px; }
 
     /* ─── Project card ─────────────────────────────────────── */
     .project-card {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px; padding: 28px; transition: all 0.3s;
+      background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; padding: 28px; transition: all 0.25s ease;
       position: relative; overflow: hidden;
     }
     .project-card::before {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(99,102,241,0.06), transparent);
+      background: linear-gradient(135deg, rgba(147,165,214,0.04), transparent);
       opacity: 0; transition: opacity 0.3s;
     }
-    .project-card:hover { border-color: rgba(99,102,241,0.4); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(99,102,241,0.15); }
+    .project-card:hover { border-color: rgba(147,165,214,0.25); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
     .project-card:hover::before { opacity: 1; }
 
     /* ─── Nav link underline anim ──────────────────────────── */
     .nav-link { position: relative; }
-    .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #6366f1; transition: width 0.3s; }
+    .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: #93a5d6; transition: width 0.3s; }
     .nav-link:hover::after { width: 100%; }
 
     /* ─── Section divider ──────────────────────────────────── */
-    .section-label { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: #6366f1; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+    .section-label { font-family: 'Fira Code', monospace; font-size: 0.7rem; color: #93a5d6; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight: 500; }
 
     /* ─── Input focus glow ─────────────────────────────────── */
-    .glow-input:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.2); }
+    .glow-input:focus { outline: none; border-color: #5b6fc4; box-shadow: 0 0 0 3px rgba(91,111,196,0.15); }
 
     /* ─── Scrollbar ────────────────────────────────────────── */
     ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0f0f1a; }
-    ::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 3px; }
+    ::-webkit-scrollbar-track { background: #0b1020; }
+    ::-webkit-scrollbar-thumb { background: #2f4185; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3f53a8; }
   </style>
 </head>
 
 <!-- ══════════════════ BODY ══════════════════ -->
-<body class="bg-[#0a0a14] text-gray-200 antialiased">
+<body class="bg-[#0b1020] text-gray-200 antialiased">
 
 <!-- ╔══════════════════════════════════════════╗
      ║              NAVIGATION                  ║
      ╚══════════════════════════════════════════╝ -->
-<nav id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300" style="background: rgba(10,10,20,0);">
+<nav id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300" style="background: rgba(11,16,32,0);">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
     <!-- Logo -->
     <a href="#hero" class="font-mono text-brand-400 font-semibold text-lg tracking-tight">
@@ -145,6 +153,8 @@
       <li><a href="#experience"   class="nav-link hover:text-white transition">Experience</a></li>
       <li><a href="#projects"     class="nav-link hover:text-white transition">Projects</a></li>
       <li><a href="#achievements" class="nav-link hover:text-white transition">Achievements</a></li>
+      <li><a href="#blog"         class="nav-link hover:text-white transition">Blog</a></li>
+      <li><a href="#playground"   class="nav-link hover:text-white transition">Playground</a></li>
       <li><a href="#contact"      class="nav-link hover:text-white transition">Contact</a></li>
     </ul>
     <!-- Resume Button -->
@@ -158,13 +168,15 @@
     </button>
   </div>
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-[#0d0d1f] border-t border-white/5">
+  <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-[#0d1428] border-t border-white/5">
     <ul class="flex flex-col gap-4 pt-4 text-sm text-gray-400">
       <li><a href="#about"        class="hover:text-white transition mobile-link">About</a></li>
       <li><a href="#skills"       class="hover:text-white transition mobile-link">Skills</a></li>
       <li><a href="#experience"   class="hover:text-white transition mobile-link">Experience</a></li>
       <li><a href="#projects"     class="hover:text-white transition mobile-link">Projects</a></li>
       <li><a href="#achievements" class="hover:text-white transition mobile-link">Achievements</a></li>
+      <li><a href="#blog"         class="hover:text-white transition mobile-link">Blog</a></li>
+      <li><a href="#playground"   class="hover:text-white transition mobile-link">Playground</a></li>
       <li><a href="#contact"      class="hover:text-white transition mobile-link">Contact</a></li>
       <li><a href="resume.pdf" download class="text-brand-400">⬇ Download Resume</a></li>
     </ul>
@@ -279,7 +291,7 @@
       </div>
 
       <!-- Right: Terminal-style card -->
-      <div class="font-mono text-sm bg-[#0d0d1f] rounded-2xl border border-white/[0.07] p-6 shadow-2xl">
+      <div class="font-mono text-sm bg-[#0d1428] rounded-2xl border border-white/[0.07] p-6 shadow-2xl">
         <div class="flex gap-2 mb-4">
           <span class="w-3 h-3 rounded-full bg-red-500"></span>
           <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
@@ -307,7 +319,7 @@
 <!-- ╔══════════════════════════════════════════╗
      ║                SKILLS                    ║
      ╚══════════════════════════════════════════╝ -->
-<section id="skills" class="py-24 px-6 bg-[#0d0d1f]">
+<section id="skills" class="py-24 px-6 bg-[#0d1428]">
   <div class="max-w-5xl mx-auto">
     <div class="reveal text-center mb-16">
       <p class="section-label">// technical stack</p>
@@ -521,7 +533,7 @@
 <!-- ╔══════════════════════════════════════════╗
      ║               PROJECTS                   ║
      ╚══════════════════════════════════════════╝ -->
-<section id="projects" class="py-24 px-6 bg-[#0d0d1f]">
+<section id="projects" class="py-24 px-6 bg-[#0d1428]">
   <div class="max-w-5xl mx-auto">
     <div class="reveal text-center mb-16">
       <p class="section-label">// selected work</p>
@@ -676,9 +688,238 @@
 
 
 <!-- ╔══════════════════════════════════════════╗
+     ║                 BLOG                     ║
+     ╚══════════════════════════════════════════╝ -->
+<section id="blog" class="py-24 px-6 bg-[#0d1428]">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="section-label">// published insights</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-white">Blog</h2>
+      <p class="text-gray-500 mt-3 max-w-2xl mx-auto">A collection of practical write-ups on AI, evaluation science, and production-grade automation. Each article below is designed as a 5-minute read.</p>
+    </div>
+
+    <!-- Blog list -->
+    <div class="reveal mb-12 bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6">
+      <p class="text-xs uppercase tracking-[0.2em] text-gray-500 mb-4">Published Topics</p>
+      <ol class="space-y-3 text-sm text-gray-300 list-decimal list-inside">
+        <li><a href="#blog-post-1" class="hover:text-brand-400 transition">Towards developing future-ready skills with generative AI</a></li>
+        <li><a href="#blog-post-2" class="hover:text-brand-400 transition">Building better AI benchmarks: How many raters are enough?</a></li>
+        <li><a href="#blog-post-3" class="hover:text-brand-400 transition">Evaluating alignment of behavioral dispositions in LLMs</a></li>
+        <li><a href="#blog-post-4" class="hover:text-brand-400 transition">Protecting cities with AI-driven flash flood forecasting</a></li>
+        <li><a href="#blog-post-5" class="hover:text-brand-400 transition">LangChain &amp; LangGraph: Building intelligent AI pipelines and stateful agent workflows</a></li>
+      </ol>
+    </div>
+
+    <div class="reveal space-y-8">
+      <article id="blog-post-1" class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-8 hover:border-brand-500/35 transition">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+          <h3 class="text-xl md:text-2xl font-bold text-white">Towards developing future-ready skills with generative AI</h3>
+          <span class="text-xs px-3 py-1 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-300">5 min read</span>
+        </div>
+        <div class="mb-6">
+          <div class="relative w-full overflow-hidden rounded-xl border border-white/[0.08] bg-black" style="padding-top:56.25%;">
+            <video
+              class="absolute inset-0 h-full w-full"
+              controls
+              autoplay
+              muted
+              loop
+              preload="metadata"
+              playsinline
+              poster="https://images.pexels.com/videos/3195394/free-video-3195394.jpg?auto=compress&cs=tinysrgb&dpr=1&w=1200">
+              <source src="VANTAGE-SOCIAL_LOOP.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <p class="mt-2 text-xs text-gray-500">Featured video for this topic. If playback is blocked in your browser, <a href="VANTAGE-SOCIAL_LOOP.mp4" target="_blank" rel="noopener noreferrer" class="text-brand-400 hover:text-brand-300">open video in new tab</a>.</p>
+        </div>
+        <div class="space-y-4 text-gray-400 leading-relaxed text-sm md:text-base">
+          <p>Generative AI is changing the definition of professional readiness. In earlier technology waves, workers benefited mostly by learning a new tool. Today, the shift is deeper: knowledge work itself is being reorganized around human-AI collaboration. Future-ready professionals are not those who merely prompt a model, but those who can frame problems well, validate machine outputs, and translate generated artifacts into reliable business outcomes. This means that skill development can no longer be divided into technical versus non-technical tracks. Both are converging into a practical capability: using AI to reason faster while keeping quality, ethics, and accountability intact.</p>
+          <p>A useful way to think about this is through three stacked layers. The first is AI literacy: understanding model strengths, common failure modes, and data limitations. The second is workflow integration: redesigning daily activities so that AI handles repetitive synthesis while humans focus on judgment and decision-making. The third is governance maturity: applying policy, security, and traceability practices so AI usage is safe and auditable. Teams often overinvest in the first layer and underinvest in the other two. As a result, they see impressive demos but limited production value. Sustainable capability comes when all three layers are developed together.</p>
+          <p>From a skills roadmap perspective, prompt writing is only the entry point. High-impact professionals learn decomposition, which is the ability to split ambiguous tasks into machine-solvable units. They build evaluation habits, such as checking output consistency across scenarios and identifying hallucination triggers. They also improve domain grounding by attaching AI outputs to verified enterprise knowledge sources, logs, and structured systems. In practical terms, this can include retrieval-augmented assistants for support teams, model-generated test cases in engineering, and AI-assisted policy draft reviews in compliance functions. The winning pattern is not automation for its own sake, but augmentation with measurable throughput and quality gains.</p>
+          <p>Organizations that want future-ready talent should redesign learning programs around real operational problems. Instead of broad lectures, run short challenge-based cohorts where teams solve production-adjacent tasks with AI and report metrics. Track how quickly participants move from idea to validated output. Reward responsible experimentation, especially where teams document mistakes and corrective patterns. This builds institutional knowledge and lowers the risk of repeating the same failure modes. Leadership also plays a critical role by setting clear boundaries on privacy, data usage, and model selection, enabling teams to innovate confidently within guardrails rather than hesitating under uncertainty.</p>
+          <p>Over the next few years, the most valuable professionals will combine technical fluency with systems thinking. They will know when to trust AI acceleration and when to slow down for human review. They will communicate model uncertainty to stakeholders in plain language and design fallback paths for high-risk decisions. In other words, future-ready skill development with generative AI is less about chasing every new model release and more about building durable operating habits. Individuals and teams that internalize this mindset will remain adaptive, credible, and effective even as the AI landscape continues to evolve rapidly.</p>
+        </div>
+      </article>
+
+      <article id="blog-post-2" class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-8 hover:border-sky-500/35 transition">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+          <h3 class="text-xl md:text-2xl font-bold text-white">Building better AI benchmarks: How many raters are enough?</h3>
+          <span class="text-xs px-3 py-1 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-300">5 min read</span>
+        </div>
+        <div class="space-y-4 text-gray-400 leading-relaxed text-sm md:text-base">
+          <p>Benchmarking AI systems has become easier to launch and harder to trust. Many teams now evaluate models with small rater pools and assume that average scores represent objective quality. In reality, human evaluation introduces variance from differences in expertise, interpretation, fatigue, and context. The central question is not simply how many raters to recruit, but how much rating uncertainty an organization is willing to accept for a decision. If the benchmark will influence production rollouts, safety policy, or customer-facing behavior, weak rater design can create expensive misjudgments that look statistically confident on paper.</p>
+          <p>A practical approach starts with task criticality. Low-risk content tasks may tolerate wider confidence intervals and fewer raters per sample. High-risk tasks, such as medical summarization, incident triage, or legal drafting support, require tighter intervals and stronger agreement analysis. Rather than choosing a fixed number up front, teams should run pilot rounds and estimate inter-rater reliability using measures like Krippendorff's alpha or weighted agreement metrics aligned to task labels. If reliability is low, adding more raters without improving rubric quality often wastes budget. Better gains come from clarifying instructions, adding examples, and training raters on edge cases before scale-up.</p>
+          <p>Many mature programs use adaptive allocation. Straightforward samples can be rated by fewer people, while ambiguous or high-disagreement samples receive additional reviews. This reduces cost while preserving confidence where it matters most. Another useful pattern is calibration sets: a subset of anchor items reviewed repeatedly across cohorts. Calibration reveals drift over time and highlights whether observed model improvements are real or simply artifacts of changing rater behavior. Teams should also separate domain experts and general raters when possible. Expert-heavy pools are slower and more expensive, but essential for nuanced tasks where subtle errors can carry disproportionate consequences.</p>
+          <p>It is also important to connect rater design with downstream decisions. Suppose two model versions differ by a small margin in benchmark score. If that difference is smaller than the uncertainty band induced by rater variability, the result should be treated as inconclusive. In that case, teams may need more ratings, better rubrics, or scenario-specific testing before shipping. Conversely, when differences are large and robust across slices, fewer raters may be sufficient. This decision-theoretic framing keeps benchmarking honest: the point is not to maximize sample size blindly, but to gather enough evidence to support a high-stakes choice with appropriate confidence.</p>
+          <p>So, how many raters are enough? The answer is conditional, but the process can be disciplined. Start with pilot reliability, define acceptable uncertainty thresholds, use adaptive adjudication for contentious samples, and report confidence intervals alongside mean scores. Publish rubric versions and calibration outcomes for transparency. Benchmarks become more credible when they describe not only model performance, but also evaluation quality. In an ecosystem flooded with leaderboard claims, teams that invest in rigorous rater methodology will make better deployment decisions and build stronger trust with stakeholders, regulators, and customers.</p>
+        </div>
+      </article>
+
+      <article id="blog-post-3" class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-8 hover:border-purple-500/35 transition">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+          <h3 class="text-xl md:text-2xl font-bold text-white">Evaluating alignment of behavioral dispositions in LLMs</h3>
+          <span class="text-xs px-3 py-1 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300">5 min read</span>
+        </div>
+        <div class="space-y-4 text-gray-400 leading-relaxed text-sm md:text-base">
+          <p>Alignment discussions often focus on obvious failures such as toxic output, unsafe instructions, or factual hallucinations. Yet many real-world harms emerge from subtler behavioral dispositions: excessive confidence, sycophancy, evasiveness, over-deference to authority, or inconsistency under pressure. These traits can influence user decisions even when surface-level responses appear acceptable. Evaluating alignment therefore requires more than static safety filters. It requires understanding how models behave across interaction patterns, user personas, and incentive structures. A model that is polite and factual in isolated prompts may still show problematic tendencies in multi-turn contexts where social cues shape its responses.</p>
+          <p>A robust evaluation framework begins with explicit behavioral dimensions. Teams can define dispositions such as epistemic humility, uncertainty disclosure, refusal consistency, and manipulation resistance. Each dimension should include positive and negative examples so raters know what to score. Scenario design matters: use adversarial prompts, authority-framed prompts, emotionally loaded prompts, and ambiguous prompts to stress behavioral boundaries. It is useful to include neutral baselines too, because over-tuning against adversarial behavior can degrade normal usefulness. Alignment is not just refusal strength; it is balanced conduct that preserves safety while remaining helpful and context-aware.</p>
+          <p>Measurement should combine qualitative and quantitative signals. Human ratings capture nuanced tone and intent, while automated probes detect broad behavioral drift across large test sets. Pairwise comparisons can be especially effective for identifying subtle disposition differences between model versions. Longitudinal testing is equally important. A model that performs well immediately after tuning may drift after updates to retrieval pipelines, system prompts, or moderation layers. Tracking disposition metrics as part of release gates helps catch regressions before production impact. Teams should also evaluate across languages and cultural contexts, since alignment assumptions may not transfer cleanly between regions.</p>
+          <p>Operational alignment requires closing the loop between evaluation and intervention. If a model shows overconfidence, product design can enforce confidence cues, citation requirements, or escalation flows for sensitive tasks. If sycophancy is detected, instruction hierarchies and preference objectives can be adjusted to prioritize factual grounding over user pleasing. Governance teams should document known behavioral limitations and communicate them to end users in clear terms. This transparency reduces misuse and sets realistic expectations. Importantly, no single benchmark can certify universal alignment. Behavioral safety is contextual and must be continuously monitored as use cases evolve.</p>
+          <p>The long-term goal is to treat behavioral alignment like reliability engineering rather than one-time compliance. Define target dispositions, stress-test them systematically, monitor them in production, and remediate quickly when drift appears. This mindset helps organizations move beyond checkbox safety and toward trustworthy AI systems that behave consistently under real pressure. As LLMs become embedded in decision workflows, evaluating behavioral dispositions is not optional. It is a core requirement for reducing risk, protecting users, and maintaining confidence that the model supports human goals instead of subtly undermining them.</p>
+        </div>
+      </article>
+
+      <article id="blog-post-4" class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-8 hover:border-green-500/35 transition">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+          <h3 class="text-xl md:text-2xl font-bold text-white">Protecting cities with AI-driven flash flood forecasting</h3>
+          <span class="text-xs px-3 py-1 rounded-full border border-green-500/30 bg-green-500/10 text-green-300">5 min read</span>
+        </div>
+        <div class="space-y-4 text-gray-400 leading-relaxed text-sm md:text-base">
+          <p>Flash floods are among the most disruptive urban climate risks because they develop quickly and overwhelm static drainage assumptions. Traditional forecasting pipelines often rely on coarse temporal resolution or delayed reporting, leaving city responders with narrow decision windows. AI-driven forecasting can improve this by fusing heterogeneous data streams, including radar intensity, satellite imagery, river gauge telemetry, terrain models, and urban drainage maps. The real advantage is not only prediction accuracy, but prediction speed and localization. When responders receive street-level risk alerts earlier, they can pre-position resources, reroute traffic, and issue targeted advisories before conditions deteriorate.</p>
+          <p>Building such systems starts with data engineering discipline. Hydrological data is noisy, patchy, and often siloed across agencies. AI pipelines must handle missing values, sensor drift, and inconsistent update cadence. Feature design should include rainfall accumulation windows, soil saturation proxies, upstream flow trends, and built-environment variables such as impervious surface ratios. Hybrid modeling is often effective: physics-informed constraints preserve hydrological plausibility, while machine learning captures nonlinear micro-patterns in dense urban areas. This combination helps avoid black-box predictions that look impressive historically but fail under unusual storm regimes.</p>
+          <p>Forecast usefulness depends on decision integration. City teams do not need abstract probabilities alone; they need action-ready outputs tied to operational thresholds. A good system translates predicted water levels into clear risk categories by zone, expected onset time, and recommended actions. For example, maintenance crews may be dispatched when drain overflow risk crosses a threshold, while schools and hospitals receive higher-priority alerts for evacuation readiness. Explainability tools, such as feature contribution summaries, can improve trust among emergency managers who must justify interventions publicly. If stakeholders cannot interpret why a warning was raised, response confidence may remain low even when the model is accurate.</p>
+          <p>Equity is another critical factor. Flood impacts are rarely uniform across a city. Lower-income neighborhoods often face weaker drainage infrastructure and slower recovery capacity. AI systems should include fairness-aware evaluation to ensure warnings are not systematically less accurate in vulnerable zones due to poor sensor coverage. Investment in instrumentation and data partnerships should prioritize blind spots, not only central business districts. Privacy and governance must also be addressed, especially when integrating mobility or crowdsourced incident data. Clear policies on data retention, access control, and incident auditing help maintain public trust in predictive infrastructure.</p>
+          <p>AI-driven flash flood forecasting is most powerful when treated as a city resilience platform rather than a standalone model. Continuous retraining, post-event backtesting, and cross-agency incident reviews can steadily improve performance. Over time, forecasts can inform infrastructure planning, revealing where drainage upgrades or green runoff mitigation will have the highest impact. As climate variability intensifies, cities need forecasting systems that are adaptive, transparent, and operationally embedded. Done right, AI does not replace emergency expertise; it amplifies it by turning fragmented environmental signals into timely, actionable intelligence that protects lives and critical urban services.</p>
+        </div>
+      </article>
+      <article id="blog-post-5" class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-8 hover:border-orange-500/35 transition">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+          <h3 class="text-xl md:text-2xl font-bold text-white">LangChain and LangGraph: Practical comparison</h3>
+          <span class="text-xs px-3 py-1 rounded-full border border-orange-500/30 bg-orange-500/10 text-orange-300">8 min read</span>
+        </div>
+
+        <div class="space-y-6 text-gray-400 leading-relaxed text-sm md:text-base">
+          <div>
+            <h4 class="text-white font-semibold mb-2">LangChain</h4>
+            <p><strong class="text-brand-400">Purpose:</strong> Build LLM apps quickly with reusable chains, prompts, tools, and retrievers.</p>
+            <p><strong class="text-brand-400">Structure:</strong> Prompt templates, chains, agents, memory, tools, and vector retrievers.</p>
+            <p><strong class="text-brand-400">Applications:</strong> RAG chatbots, document Q&amp;A, summarization, classification, tool-calling assistants.</p>
+            <p><strong class="text-brand-400">Strengths:</strong> Fast to build, large integration ecosystem, good developer experience.</p>
+            <p><strong class="text-brand-400">Limitations:</strong> Less natural for complex branching and persistent long-running workflows.</p>
+          </div>
+
+          <div>
+            <h4 class="text-white font-semibold mb-2">LangGraph</h4>
+            <p><strong class="text-sky-400">Purpose:</strong> Build stateful, multi-step, multi-agent workflows with explicit graph control flow.</p>
+            <p><strong class="text-sky-400">Structure:</strong> State graph, nodes, edges, conditional routing, loop control, and checkpointing.</p>
+            <p><strong class="text-sky-400">Applications:</strong> Multi-agent orchestration, approval flows, iterative self-correction loops.</p>
+            <p><strong class="text-sky-400">Strengths:</strong> Clear control flow, resumable state, better support for complex agent behavior.</p>
+            <p><strong class="text-sky-400">Limitations:</strong> More setup, steeper learning curve, heavier for simple linear apps.</p>
+          </div>
+
+          <div>
+            <h4 class="text-white font-semibold mb-2">Example code: LangChain</h4>
+            <pre class="p-4 rounded-xl bg-[#080812] border border-white/[0.08] overflow-x-auto text-xs"><code>from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+prompt = ChatPromptTemplate.from_template("Answer briefly: {question}")
+
+chain = prompt | llm
+result = chain.invoke({"question": "What is LangChain?"})
+print(result.content)</code></pre>
+          </div>
+
+          <div>
+            <h4 class="text-white font-semibold mb-2">Example code: LangGraph</h4>
+            <pre class="p-4 rounded-xl bg-[#080812] border border-white/[0.08] overflow-x-auto text-xs"><code>from typing import TypedDict
+from langgraph.graph import StateGraph, START, END
+
+class State(TypedDict):
+    text: str
+
+def step(state: State):
+    return {"text": state["text"] + " -> processed"}
+
+graph = StateGraph(State)
+graph.add_node("step", step)
+graph.add_edge(START, "step")
+graph.add_edge("step", END)
+
+app = graph.compile()
+print(app.invoke({"text": "input"}))</code></pre>
+          </div>
+
+          <div>
+            <h4 class="text-white font-semibold mb-2">Difference table</h4>
+            <div class="overflow-x-auto rounded-xl border border-white/[0.08]">
+              <table class="w-full text-sm text-left">
+                <thead>
+                  <tr class="bg-white/[0.04] border-b border-white/[0.08]">
+                    <th class="px-4 py-3 text-gray-300 font-semibold">Aspect</th>
+                    <th class="px-4 py-3 text-orange-300 font-semibold">LangChain</th>
+                    <th class="px-4 py-3 text-sky-300 font-semibold">LangGraph</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/[0.05]">
+                  <tr><td class="px-4 py-3 text-gray-400">Main model</td><td class="px-4 py-3 text-gray-400">Chains and agents</td><td class="px-4 py-3 text-gray-400">Stateful graph workflow</td></tr>
+                  <tr><td class="px-4 py-3 text-gray-400">Control flow</td><td class="px-4 py-3 text-gray-400">Mostly linear</td><td class="px-4 py-3 text-gray-400">Conditional and cyclic</td></tr>
+                  <tr><td class="px-4 py-3 text-gray-400">State</td><td class="px-4 py-3 text-gray-400">Basic memory</td><td class="px-4 py-3 text-gray-400">Persistent shared state</td></tr>
+                  <tr><td class="px-4 py-3 text-gray-400">Best for</td><td class="px-4 py-3 text-gray-400">Fast LLM app prototyping</td><td class="px-4 py-3 text-gray-400">Complex agent orchestration</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║          PYTHON PLAYGROUND               ║
+     ╚══════════════════════════════════════════╝ -->
+<section id="playground" class="py-24 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal text-center mb-12">
+      <p class="section-label">// run code in browser</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-white">Python Playground</h2>
+      <p class="text-gray-500 mt-3 max-w-2xl mx-auto">Execute Python directly in your browser using Pyodide. No backend server is required.</p>
+    </div>
+
+    <div class="reveal grid lg:grid-cols-2 gap-6">
+      <div class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-3">
+          <p class="text-sm text-gray-300 font-medium">Code Editor</p>
+          <button id="load-example" class="text-xs px-3 py-1.5 rounded-lg border border-white/15 text-gray-300 hover:text-white hover:border-brand-400 transition">Load Example</button>
+        </div>
+        <textarea
+          id="python-code"
+          class="w-full h-72 bg-[#0d1428] border border-white/[0.1] rounded-xl px-4 py-3 text-sm text-gray-200 font-mono glow-input resize-y"
+          spellcheck="false"
+        >print("Hello from Pyodide")
+
+for i in range(3):
+    print("Number:", i)</textarea>
+
+        <div class="mt-4 flex flex-wrap gap-3">
+          <button id="run-python" class="px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-sm font-semibold transition">Run Python</button>
+          <button id="clear-output" class="px-5 py-2.5 rounded-lg border border-white/15 hover:border-white/30 text-gray-300 hover:text-white text-sm font-semibold transition">Clear Output</button>
+        </div>
+        <p id="pyodide-status" class="mt-3 text-xs text-gray-500">Initializing Python runtime...</p>
+      </div>
+
+      <div class="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6">
+        <p class="text-sm text-gray-300 font-medium mb-3">Output</p>
+        <pre id="python-output" class="h-72 overflow-auto bg-[#0d1428] border border-white/[0.1] rounded-xl p-4 text-sm text-emerald-300 font-mono whitespace-pre-wrap"></pre>
+        <div class="mt-4 text-xs text-gray-500 leading-relaxed">
+          <p>Dependencies used:</p>
+          <p>1. Tailwind CSS (already present for UI styling)</p>
+          <p>2. Pyodide CDN script for in-browser Python runtime</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════╗
      ║               CONTACT                    ║
      ╚══════════════════════════════════════════╝ -->
-<section id="contact" class="py-24 px-6 bg-[#0d0d1f]">
+<section id="contact" class="py-24 px-6 bg-[#0d1428]">
   <div class="max-w-4xl mx-auto">
     <div class="reveal text-center mb-16">
       <p class="section-label">// get in touch</p>
@@ -794,7 +1035,139 @@
 
 
 <!-- ══════════════════ SCRIPTS ══════════════════ -->
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.2/full/pyodide.js"></script>
 <script>
+
+/* ─── Python Playground (Pyodide, no backend) ───────────────────────────── */
+let pyodideInstance = null;
+let pyodideReady = false;
+
+async function initPyodide() {
+  const statusEl = document.getElementById('pyodide-status');
+  const runBtn = document.getElementById('run-python');
+
+  if (!statusEl || !runBtn) return;
+
+  runBtn.disabled = true;
+
+  if (!window.loadPyodide) {
+    statusEl.textContent = 'Pyodide failed to load. Check internet connection and refresh.';
+    statusEl.classList.add('text-red-400');
+    return;
+  }
+
+  try {
+    pyodideInstance = await loadPyodide();
+    await pyodideInstance.runPythonAsync(`
+import io
+import traceback
+import contextlib
+
+def __run_user_code(code):
+    stdout = io.StringIO()
+    stderr = io.StringIO()
+    env = {}
+    try:
+        with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
+            exec(code, env, env)
+        return {
+            "ok": True,
+            "stdout": stdout.getvalue(),
+            "stderr": stderr.getvalue(),
+            "error": ""
+        }
+    except Exception:
+        return {
+            "ok": False,
+            "stdout": stdout.getvalue(),
+            "stderr": stderr.getvalue(),
+            "error": traceback.format_exc()
+        }
+`);
+
+    pyodideReady = true;
+    runBtn.disabled = false;
+    statusEl.textContent = 'Python runtime ready. You can run code now.';
+    statusEl.classList.remove('text-red-400');
+    statusEl.classList.add('text-green-400');
+  } catch (err) {
+    statusEl.textContent = 'Failed to initialize Python runtime.';
+    statusEl.classList.remove('text-green-400');
+    statusEl.classList.add('text-red-400');
+    console.error('Pyodide init error:', err);
+  }
+}
+
+async function runPythonCode() {
+  const codeEl = document.getElementById('python-code');
+  const outputEl = document.getElementById('python-output');
+
+  if (!codeEl || !outputEl) return;
+  if (!pyodideReady || !pyodideInstance) {
+    outputEl.textContent = 'Python runtime is not ready yet.';
+    return;
+  }
+
+  const code = codeEl.value || '';
+  outputEl.textContent = 'Running...';
+
+  try {
+    pyodideInstance.globals.set('user_code', code);
+    const resultProxy = await pyodideInstance.runPythonAsync('__run_user_code(user_code)');
+    const result = resultProxy.toJs ? resultProxy.toJs({ dict_converter: Object.fromEntries }) : resultProxy;
+
+    let text = '';
+    if (result.stdout) text += result.stdout;
+    if (result.stderr) text += (text ? '\n' : '') + result.stderr;
+    if (!result.ok && result.error) text += (text ? '\n' : '') + result.error;
+    if (!text.trim()) text = 'Execution finished. No output.';
+
+    outputEl.textContent = text;
+
+    if (resultProxy && typeof resultProxy.destroy === 'function') {
+      resultProxy.destroy();
+    }
+  } catch (err) {
+    outputEl.textContent = 'Runtime error:\n' + String(err);
+    console.error('Pyodide execution error:', err);
+  }
+}
+
+const runPythonBtn = document.getElementById('run-python');
+if (runPythonBtn) {
+  runPythonBtn.addEventListener('click', runPythonCode);
+}
+
+const clearOutputBtn = document.getElementById('clear-output');
+if (clearOutputBtn) {
+  clearOutputBtn.addEventListener('click', function() {
+    const outputEl = document.getElementById('python-output');
+    if (outputEl) outputEl.textContent = '';
+  });
+}
+
+const loadExampleBtn = document.getElementById('load-example');
+if (loadExampleBtn) {
+  loadExampleBtn.addEventListener('click', function() {
+    const codeEl = document.getElementById('python-code');
+    if (!codeEl) return;
+    codeEl.value = [
+      'def fibonacci(n):',
+      '    a, b = 0, 1',
+      '    seq = []',
+      '    for _ in range(n):',
+      '        seq.append(a)',
+      '        a, b = b, a + b',
+      '    return seq',
+      '',
+      'print("First 10 fibonacci numbers:")',
+      'print(fibonacci(10))'
+    ].join('\n');
+  });
+}
+
+initPyodide();
+
 /* ─── EmailJS Init ─────────────────────────────────────────────────────────
    SETUP STEPS (free, takes 5 minutes):
    1. Go to https://www.emailjs.com and create a free account
@@ -933,11 +1306,11 @@ function showStatus(msg, type) {
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', function() {
   if (window.scrollY > 50) {
-    navbar.style.background = 'rgba(10,10,20,0.92)';
-    navbar.style.backdropFilter = 'blur(12px)';
-    navbar.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+    navbar.style.background = 'rgba(11,16,32,0.85)';
+    navbar.style.backdropFilter = 'blur(14px) saturate(140%)';
+    navbar.style.borderBottom = '1px solid rgba(255,255,255,0.06)';
   } else {
-    navbar.style.background = 'rgba(10,10,20,0)';
+    navbar.style.background = 'rgba(11,16,32,0)';
     navbar.style.backdropFilter = 'none';
     navbar.style.borderBottom = 'none';
   }
